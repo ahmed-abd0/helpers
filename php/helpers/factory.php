@@ -1,7 +1,7 @@
 <?php
 
 
-function factory($family)
+function factory(string $family)
 {
     $types = [
         "tri" => [

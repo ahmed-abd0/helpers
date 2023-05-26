@@ -1,11 +1,14 @@
-
-
 class MessagePrinter {
 
-    #message;
+    #message = [];
     #notCleanedInsertedMessages = [];
 
     constructor(message) {
+
+        if(!message instanceof Message) {
+            throw new Error("message must be instance of Message");
+        }
+
         this.#message = message;
     }
 
@@ -14,32 +17,21 @@ class MessagePrinter {
         return new MessagePrinter(message);
     }
 
-
     get and() {
         return new MessagePrinter(this.#message);
     }
 
-    getElement(element) {
-       
-        if (element instanceof HTMLElement) {
-            return element;
-        }
-
-        if(elements.constructor.name === "String") {
-            return document.querySelector(elements);
-        }
-
-        throw new Error("element should be string or HTMLElement");
-       
-    }
-
-    
-    
     getElements(elements) {
         
         if(elements.constructor.name === "String") {
             return document.querySelectorAll(elements);
         }
+
+
+        if(elements instanceof HTMLElement) {
+            return [elements];
+        }
+        
 
         if(Array.isArray(elements) || elements instanceof  NodeList) {
 
@@ -47,44 +39,21 @@ class MessagePrinter {
                 throw Error("elements must be subclass from HTMLElement");
             }
             
-
             return elements;
         }
 
         throw new Error("elements should be string or Nodelist or Array");
     }
+   
 
-    appendMessageTo(element) {
-
-        this.getElement(element).appendChild(this.message.textNode());
-    }
-
-    insertAfter(element) {
-
-        this.getElement(element).insertAdjacentElement("afterend", this.messageCloneAndAddItToNotCleaned());
-        return this;
-    }
-
-    insertBefore(element) {
-
-        this.getElement(element).insertAdjacentElement("beforebegin", this.messageCloneAndAddItToNotCleaned())
-        return this;
-    }
-
-    insertInto(element) {
-
-        this.getElement(element).insertAdjacentElement("afterbegin", this.messageCloneAndAddItToNotCleaned());
-        return this;
-    }
-
-    insertIntoAtTheEnd(element) {
-
-        this.getElement(element).insertAdjacentElement("beforeend", this.messageCloneAndAddItToNotCleaned());
-        return this;
+    appendMessageTo(elements) {
+        this.getElements(elements).forEach(element => {
+            element.appendChild(this.message.textNode());
+        });
     }
 
 
-    insertAfterAll(elements) {
+    insertAfter(elements) {
 
         this.getElements(elements).forEach(element => {
             element.insertAdjacentElement("afterend", this.messageCloneAndAddItToNotCleaned())
@@ -93,7 +62,7 @@ class MessagePrinter {
         return this;
     }
 
-    insertBeforeAll(elements) {
+    insertBefore(elements) {
 
         this.getElements(elements).forEach(element => {
             element.insertAdjacentElement("beforebegin", this.messageCloneAndAddItToNotCleaned())
@@ -102,7 +71,7 @@ class MessagePrinter {
         return this;
     }
 
-    insertIntoAll(elements) {
+    insertInto(elements) {
 
         this.getElements(elements).forEach(element => {
             element.insertAdjacentElement("afterbegin", this.messageCloneAndAddItToNotCleaned())
@@ -112,20 +81,19 @@ class MessagePrinter {
     }
 
     
-    insertIntoAllAtTheEnd(elements) {
+    insertIntoAtTheEnd(elements) {
 
         this.getElements(elements).forEach(element => {
             element.insertAdjacentElement("beforeend", this.messageCloneAndAddItToNotCleaned())
         });
+
         return this;
     }
-
 
     useMessage(callable) {
         callable(this.messageCloneAndAddItToNotCleaned());
         return this;
     }
-
 
     for(time) {
         
@@ -143,7 +111,6 @@ class MessagePrinter {
 
         const cloned = this.#message.cloneElement();
         this.#notCleanedInsertedMessages.push(cloned);
-
         return cloned;
     }
 
