@@ -5,7 +5,7 @@ buttons.forEach(button => {
     button.onclick = (e) => {
         e.stopPropagation();
         e.preventDefault();
-        let buttonName = e.target.dataset.button_name ?? "Confirm";
+        let buttonName = e.target.dataset?.button_name ?? "Confirm";
         Swal.fire({
             title: "are you sure ?",
             icon: 'warning',

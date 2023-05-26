@@ -34,6 +34,7 @@ class MessagePrinter {
     }
 
     
+    
     getElements(elements) {
         
         if(elements.constructor.name === "String") {
@@ -41,6 +42,12 @@ class MessagePrinter {
         }
 
         if(Array.isArray(elements) || elements instanceof  NodeList) {
+
+            if(Array.prototype.some.call(elements, element => ! element instanceof HTMLElement)) {
+                throw Error("elements must be subclass from HTMLElement");
+            }
+            
+
             return elements;
         }
 
@@ -110,6 +117,12 @@ class MessagePrinter {
         this.getElements(elements).forEach(element => {
             element.insertAdjacentElement("beforeend", this.messageCloneAndAddItToNotCleaned())
         });
+        return this;
+    }
+
+
+    useMessage(callable) {
+        callable(this.messageCloneAndAddItToNotCleaned());
         return this;
     }
 
