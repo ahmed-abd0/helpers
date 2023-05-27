@@ -1,7 +1,11 @@
+
+//By Ahmed Abdo 😎
+
 class MessagePrinter {
 
     #message = [];
     #notCleanedInsertedMessages = [];
+    #notCleanedText = new Map();
 
     constructor(message) {
 
@@ -46,10 +50,15 @@ class MessagePrinter {
     }
    
 
+ 
     appendMessageTo(elements) {
+      
         this.getElements(elements).forEach(element => {
-            element.appendChild(this.message.textNode());
+            this.#notCleanedText.set(element, element.innerHTML);
+            element.innerHTML += this.#message.text();
         });
+
+        return this;
     }
 
 
@@ -94,13 +103,13 @@ class MessagePrinter {
         callable(this.messageCloneAndAddItToNotCleaned());
         return this;
     }
-
+    
     for(time) {
         
         setTimeout(() => {
-            this.#notCleanedInsertedMessages.forEach(message => {
-                message.remove();
-            });
+            
+            this.#notCleanedInsertedMessages.forEach(message => message.remove());
+            this.#notCleanedText.forEach((oldStat, element) => element.innerHTML = oldStat);
         }, time);
         
         return this;

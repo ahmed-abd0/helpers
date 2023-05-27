@@ -1,5 +1,6 @@
 <?php
 
+//By Ahmed Abdo 😎
 
 function pipe(...$callables)
 {
