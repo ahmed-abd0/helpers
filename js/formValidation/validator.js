@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $(document).on("submit", ".validate", function (e) {
         e.preventDefault()
@@ -14,32 +15,23 @@ $(document).ready(function () {
             success: function (data) {
                 location.reload();
             },
-            error: function (data) {
+            error: (data) => {
 
-                $(".validation-message").hide();
+                document.querySelectorAll(".validation-message").forEach(message => message.remove())
+               
                 let errors = data.responseJSON.errors;
                 for (const inputName in errors) {
-                    let input = document.querySelector(`[name=${inputName}]`);
 
-                    if (input) {
-                        let errorMessages = '';
-                        errors[inputName].forEach(error => {
-                            errorMessages +=
-                                `<p class='text-danger validation-message' style="font-size:12px"><span style="font-size:15px">😡</span>${error}</p>`
-                        });
-                        input.insertAdjacentHTML("afterend", errorMessages)
+                    let input = this.querySelector(`[name=${inputName}]`);
+    
+                    if (input && !input.classList.contains("dont-show-validation")) {
+                           
+                        input.insertAdjacentHTML("afterend", `
+                            <p class='text-danger validation-message' style="font-size:12px">${errors[inputName][0]}</p>
+                        `)
                     }
                 }
             },
         });
     })
 })
-
-
-
-// fetch(this.action, {
-//     method: this.method,
-//     body : form_data,            
-// })
-// .then(res => location.reload)
-// .catch(error => )
