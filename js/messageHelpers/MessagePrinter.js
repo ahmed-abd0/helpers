@@ -55,8 +55,8 @@ class MessagePrinter {
 
         this.getElements(elements).forEach(element => {
 
-            this.#notCleanedText.has(element) || this.#notCleanedText.set(element, element.innerHTML);
-
+            if (!this.#notCleanedText.has(element)) this.#notCleanedText.set(element, element.innerHTML);
+        
             element.innerHTML += this.#message.text();
         });
 
@@ -66,27 +66,27 @@ class MessagePrinter {
 
     insertAfter(elements) {
 
-        this.getElements(elements).forEach(element => {
+        this.getElements(elements).forEach(element =>
             element.insertAdjacentElement("afterend", this.messageCloneAndAddItToNotCleaned())
-        });
+        );
 
         return this;
     }
 
     insertBefore(elements) {
 
-        this.getElements(elements).forEach(element => {
+        this.getElements(elements).forEach(element =>
             element.insertAdjacentElement("beforebegin", this.messageCloneAndAddItToNotCleaned())
-        });
+        );
 
         return this;
     }
 
     insertInto(elements) {
 
-        this.getElements(elements).forEach(element => {
+        this.getElements(elements).forEach(element =>
             element.insertAdjacentElement("afterbegin", this.messageCloneAndAddItToNotCleaned())
-        });
+        );
 
         return this;
     }
@@ -94,15 +94,15 @@ class MessagePrinter {
 
     insertIntoAtTheEnd(elements) {
 
-        this.getElements(elements).forEach(element => {
+        this.getElements(elements).forEach(element =>
             element.insertAdjacentElement("beforeend", this.messageCloneAndAddItToNotCleaned())
-        });
+        );
 
         return this;
     }
 
     useMessage(callable) {
-        
+
         callable(this.messageCloneAndAddItToNotCleaned());
         return this;
     }

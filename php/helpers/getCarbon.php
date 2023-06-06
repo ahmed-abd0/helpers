@@ -17,3 +17,9 @@ if(!function_exists("getCarbon")) {
             return $carbon;
         }
 }
+
+class Carbon{
+    public static function parse() {
+
+    }
+}

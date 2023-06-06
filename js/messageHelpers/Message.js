@@ -9,7 +9,7 @@ class Message {
     #color;
 
     constructor(message, color = '#ec2d38', elementType = 'p') {
-
+        
         if (
             message.constructor.name !== "String" ||
             color.constructor.name !== "String" ||
@@ -45,8 +45,8 @@ class Message {
         return this.#elementNode;
     }
 
-    textNode() {
-        return document.createTextNode(this.#message);
+    text() {
+        return this.#message;
     }
 
     cloneElement() {
