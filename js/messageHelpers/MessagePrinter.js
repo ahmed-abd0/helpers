@@ -56,7 +56,7 @@ class MessagePrinter {
         this.getElements(elements).forEach(element => {
 
             if (!this.#notCleanedText.has(element)) this.#notCleanedText.set(element, element.innerHTML);
-        
+
             element.innerHTML += this.#message.text();
         });
 
