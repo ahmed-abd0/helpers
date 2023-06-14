@@ -1,5 +1,7 @@
 <?php
 
+//By Ahmed Abdo 😎
+
 namespace App\Models\concerns;
 
 // use Illuminate\Support\Facades\DB;
@@ -30,23 +32,18 @@ trait UseDefaultCasts
 
 
 
-    public function castTo($type)
+    public function castTo(string $type) 
     {
-        if (Str::contains($type, ["int"])) {
-            return "int";
-        }
+        if (Str::contains($type, ["int"])) return "int";
 
-        if (Str::contains($type, ["float", "double"])) {
-            return "float";
-        }
 
-        if (Str::contains($type, ["decimal"])) {
-            return "decimal";
-        }
+        if (Str::contains($type, ["float", "double"])) return "float";
 
-        if (Str::contains($type, ["time", "date", "year"])) {
-            return "datetime";
-        }
+
+        if (Str::contains($type, ["decimal"])) return "decimal";
+
+
+        if (Str::contains($type, ["time", "date", "year"])) return "datetime";
     }
 }
 

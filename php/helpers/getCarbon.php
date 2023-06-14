@@ -2,24 +2,29 @@
 
 //By Ahmed Abdo 😎
 
-if(!function_exists("getCarbon")) {
-        function getCarbon(...$dates) : Carbon | array {
-            $carbon = [];
-
-            if(count($dates) === 1) {
-                return $dates[0] instanceof Carbon ? $dates[0] : Carbon::parse($dates[0]);
-            }
-
-            foreach ($dates as $date) {
-                $carbon[] = $date instanceof Carbon ? $date : Carbon::parse($date);
-            }
-
-            return $carbon;
-        }
+if (!function_exists("getCarbon")) {
+    function getCarbon(...$dates)
+    {
+        return count($dates) === 1
+            ? Carbon::parse($dates[0])
+            : collect($dates)->map(fn ($date) => Carbon::parse($date) );
+    }
 }
 
-class Carbon{
-    public static function parse() {
-
+class Carbon
+{
+    public static function parse()
+    {
     }
+}
+
+function collect()
+{
+    return new class
+    {
+        function map($callback)
+        {
+            return [];
+        }
+    };
 }
