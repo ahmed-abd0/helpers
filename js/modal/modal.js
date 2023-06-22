@@ -32,14 +32,14 @@ $(".modal_btn").on("click", function() {
 `
 <div class="modal-body">
 
-    <form class="validate" action="{{ route('consultant.store') }}" method="post" enctype="multipart/form-data">
+    <form class="validate" action="{{ route('submit') }}" method="post" enctype="multipart/form-data">
 
         @csrf
        
             <div class="modal-footer">
                 <button type="button" data-bs-dismiss='modal'
-                    class="btn btn-primary main-btn">{{ __('message.dismiss') }}</button>
-                <button type="submit" id="BarcodeSubmit" class="btn btn-primary main-btn">{{ __("labels.save_changes") }}</button>
+                    class="btn btn-primary main-btn">{{ __('Dismiss') }}</button>
+                <button type="submit" id="BarcodeSubmit" class="btn btn-primary main-btn">{{ __("Save Changes") }}</button>
             </div>
 
         </div>
